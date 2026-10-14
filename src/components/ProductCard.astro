@@ -1,0 +1,54 @@
+---
+import Icon from './Icon.astro';
+import { imagenProducto, type Producto } from '../data/productos';
+import { euros, url } from '../lib/url';
+
+interface Props {
+  p: Producto;
+}
+const { p } = Astro.props;
+---
+
+<article
+  class="group flex flex-col rounded-2xl border border-line bg-white shadow-card transition hover:-translate-y-0.5 hover:shadow-lift"
+  data-producto={p.ref}
+>
+  <div class="relative overflow-hidden rounded-t-2xl bg-surface">
+    <img src={url(imagenProducto(p))} alt="" width="400" height="300" loading="lazy" decoding="async" class="aspect-3/2 w-full object-contain" />
+    {
+      p.stock === 'stock' ? (
+        <span class="absolute top-3 left-3 inline-flex items-center gap-1 rounded-full bg-ok-bg px-2.5 py-1 text-xs font-semibold text-ok">
+          <Icon name="check" size={14} stroke-width={2.4} />
+          En stock
+        </span>
+      ) : (
+        <span class="absolute top-3 left-3 inline-flex items-center gap-1 rounded-full bg-wait-bg px-2.5 py-1 text-xs font-semibold text-wait">
+          <Icon name="clock" size={14} stroke-width={2.2} />
+          Bajo pedido · 48–72 h
+        </span>
+      )
+    }
+  </div>
+
+  <div class="flex flex-1 flex-col p-4 sm:p-5 sm:pt-4">
+    <p class="num text-xs font-medium text-ink-2">Ref. {p.ref}</p>
+    <h3 class="mt-1 font-display text-[0.9375rem] leading-snug font-bold text-ink">{p.nombre}</h3>
+
+    <div class="mt-auto pt-3">
+      <p class="flex items-baseline gap-1.5">
+        <span class="text-xs text-ink-2">desde</span>
+        <span class="num font-display text-xl font-extrabold">{euros(p.precio)}</span>
+        <span class="text-xs text-ink-2">{p.unidad ? `/${p.unidad} ` : ''}+ IVA</span>
+      </p>
+      <p class="mt-1 flex items-center gap-1.5 text-xs font-medium text-brand-600">
+        <Icon name="lock" size={13} stroke-width={2} />
+        Precio profesional al iniciar sesión
+      </p>
+      <button type="button" data-anadir={p.ref} class="btn-secundario mt-3.5 w-full group-hover:border-brand-300">
+        <Icon name="plus" size={17} stroke-width={2.2} />
+        Añadir
+        <span class="sr-only">{p.nombre}</span>
+      </button>
+    </div>
+  </div>
+</article>

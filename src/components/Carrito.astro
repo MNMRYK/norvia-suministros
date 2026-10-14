@@ -1,0 +1,65 @@
+---
+import Icon from './Icon.astro';
+---
+
+<dialog
+  data-carrito
+  aria-label="Carrito"
+  class="fixed inset-y-0 right-0 left-auto m-0 h-dvh max-h-dvh w-full max-w-md bg-white p-0 shadow-lift backdrop:bg-ink/40"
+>
+  <div class="flex h-full flex-col">
+    <div class="flex items-center justify-between border-b border-line px-6 py-5">
+      <h2 class="font-display text-lg font-extrabold">Tu pedido</h2>
+      <button type="button" data-cerrar-carrito class="grid size-10 place-items-center rounded-lg hover:bg-surface" aria-label="Cerrar carrito">
+        <Icon name="x" />
+      </button>
+    </div>
+
+    <div data-carrito-contenido class="flex min-h-0 flex-1 flex-col">
+      <div data-carrito-vacio class="flex flex-1 flex-col items-center justify-center gap-3 px-8 text-center">
+        <span class="grid size-14 place-items-center rounded-full bg-surface text-ink-2"><Icon name="cart" size={26} /></span>
+        <p class="font-semibold">El carrito está vacío</p>
+        <p class="text-sm text-ink-2">Busca por referencia o navega por el catálogo para añadir productos.</p>
+      </div>
+      <ul data-carrito-lista class="min-h-0 flex-1 divide-y divide-line overflow-y-auto px-6"></ul>
+      <div data-carrito-pie class="hidden border-t border-line bg-surface px-6 py-5">
+        <div class="flex items-baseline justify-between">
+          <span class="text-sm text-ink-2">Subtotal (PVP sin IVA)</span>
+          <span data-carrito-total class="num font-display text-xl font-extrabold">0 €</span>
+        </div>
+        <p class="mt-2 flex items-start gap-2 text-xs text-ink-2">
+          <Icon name="info" size={16} class="text-brand-600" />
+          Al iniciar sesión se aplica tu tarifa profesional.
+        </p>
+        <div class="mt-4 grid grid-cols-[auto_1fr] gap-2">
+          <button type="button" data-vaciar class="btn-secundario"><Icon name="trash" size={16} />Vaciar</button>
+          <button type="button" data-pedir class="btn-primario">Solicitar pedido<Icon name="arrow-right" size={16} /></button>
+        </div>
+      </div>
+    </div>
+
+    <div data-carrito-ok class="hidden flex-1 flex-col items-center justify-center gap-3 px-8 text-center" role="status">
+      <span class="grid size-14 place-items-center rounded-full bg-ok-bg text-ok"><Icon name="check" size={28} /></span>
+      <p class="font-display text-lg font-extrabold">Pedido recibido</p>
+      <p class="text-sm text-ink-2">
+        Esto es una demo: no se ha enviado ningún pedido real. En la web real recibirías la confirmación por email.
+      </p>
+      <button type="button" data-cerrar-carrito class="btn-secundario mt-2">Seguir comprando</button>
+    </div>
+  </div>
+</dialog>
+
+<div
+  data-toast
+  role="status"
+  aria-live="polite"
+  class="pointer-events-none fixed bottom-6 left-1/2 z-50 flex -translate-x-1/2 translate-y-3 items-center gap-3 rounded-xl bg-ink px-4 py-3 text-sm text-white opacity-0 shadow-lift transition duration-300"
+>
+  <span class="grid size-6 place-items-center rounded-full bg-ok text-white"><Icon name="check" size={14} stroke-width={2.5} /></span>
+  <span data-toast-texto></span>
+  <button type="button" data-abrir-carrito class="ml-2 font-semibold text-brand-200 underline-offset-4 hover:underline">Ver carrito</button>
+</div>
+
+<script>
+  import '../scripts/carrito';
+</script>

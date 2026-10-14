@@ -1,0 +1,146 @@
+---
+import Icon from './Icon.astro';
+import Logo from './Logo.astro';
+import { MARCA } from '../data/marca';
+import { url } from '../lib/url';
+
+interface Props {
+  activo?: 'catalogo' | 'area';
+}
+const { activo } = Astro.props;
+
+const nav = [
+  { texto: 'Catálogo', href: url('catalogo/'), id: 'catalogo' },
+  { texto: 'Marcas', href: url('#marcas') },
+  { texto: 'Servicios', href: url('#servicios') },
+  { texto: 'Contacto', href: url('#contacto') },
+];
+---
+
+<div class="bg-ink text-[0.8125rem] text-slate-200">
+  <div class="contenedor flex h-9 items-center justify-between gap-4">
+    <p class="flex items-center gap-2">
+      <Icon name="truck" size={16} class="text-brand-300" />
+      <span>
+        <span class="hidden sm:inline">Pedidos antes de las 14:00 → </span>entrega en 24 h en {MARCA.zona}
+      </span>
+    </p>
+    <div class="hidden items-center gap-5 md:flex">
+      <span class="flex items-center gap-1.5"><Icon name="clock" size={15} class="text-slate-400" />{MARCA.horario}</span>
+      <a href={`mailto:${MARCA.email}`} class="flex items-center gap-1.5 hover:text-white">
+        <Icon name="mail" size={15} class="text-slate-400" />{MARCA.email}
+      </a>
+    </div>
+  </div>
+</div>
+
+<header class="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur">
+  <div class="contenedor flex h-[76px] items-center gap-6">
+    <Logo />
+
+    <nav aria-label="Principal" class="ml-6 hidden lg:block">
+      <ul class="flex items-center gap-1">
+        {
+          nav.map((l) => (
+            <li>
+              <a
+                href={l.href}
+                aria-current={activo && l.id === activo ? 'page' : undefined}
+                class:list={[
+                  'rounded-lg px-3.5 py-2 text-[0.9375rem] font-semibold transition-colors hover:bg-surface hover:text-brand-600',
+                  activo && l.id === activo ? 'text-brand-600' : 'text-ink',
+                ]}
+              >
+                {l.texto}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="ml-auto flex items-center gap-2 sm:gap-3">
+      <a href={MARCA.telefonoHref} class="hidden items-center gap-2.5 rounded-xl px-2 py-1.5 xl:flex">
+        <span class="grid size-10 place-items-center rounded-full bg-brand-50 text-brand-600">
+          <Icon name="phone" size={18} />
+        </span>
+        <span class="flex flex-col leading-tight">
+          <span class="text-xs text-ink-2">Atención profesional</span>
+          <span class="num font-display text-[0.9375rem] font-bold text-ink">{MARCA.telefono}</span>
+        </span>
+      </a>
+
+      <button
+        type="button"
+        data-abrir-carrito
+        class="relative grid size-11 place-items-center rounded-xl border border-line text-ink transition-colors hover:border-brand-300 hover:text-brand-600"
+        aria-label="Abrir carrito"
+      >
+        <Icon name="cart" size={20} />
+        <span
+          data-carrito-num
+          class="num absolute -top-1.5 -right-1.5 hidden min-w-5 rounded-full bg-brand-500 px-1.5 text-center text-[0.6875rem] leading-5 font-bold text-white"
+          >0</span
+        >
+      </button>
+
+      <a
+        href={url('area-clientes/')}
+        aria-current={activo === 'area' ? 'page' : undefined}
+        class="btn-primario hidden h-11 px-5 sm:inline-flex"
+      >
+        <Icon name="user" size={18} />
+        Área de clientes
+      </a>
+
+      <button
+        type="button"
+        class="grid size-11 place-items-center rounded-xl border border-line lg:hidden"
+        aria-label="Abrir menú"
+        aria-expanded="false"
+        aria-controls="menu-movil"
+        data-menu-btn
+      >
+        <Icon name="menu" size={20} />
+      </button>
+    </div>
+  </div>
+
+  <nav id="menu-movil" aria-label="Menú móvil" class="hidden border-t border-line bg-white lg:hidden" data-menu>
+    <ul class="contenedor flex flex-col py-3">
+      {
+        nav.map((l) => (
+          <li>
+            <a href={l.href} class="block rounded-lg px-2 py-3 font-semibold text-ink hover:bg-surface">
+              {l.texto}
+            </a>
+          </li>
+        ))
+      }
+      <li class="mt-2 flex flex-col gap-2 border-t border-line pt-4 sm:hidden">
+        <a href={url('area-clientes/')} class="btn-primario h-11"><Icon name="user" size={18} />Área de clientes</a>
+      </li>
+      <li class="pt-2">
+        <a href={MARCA.telefonoHref} class="flex items-center gap-2 px-2 py-2 font-semibold text-ink">
+          <Icon name="phone" size={18} class="text-brand-600" />{MARCA.telefono}
+        </a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('[data-menu-btn]');
+  const menu = document.querySelector<HTMLElement>('[data-menu]');
+  btn?.addEventListener('click', () => {
+    const abierto = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!abierto));
+    menu?.classList.toggle('hidden', abierto);
+  });
+  menu?.addEventListener('click', (e) => {
+    if ((e.target as HTMLElement).closest('a')) {
+      menu.classList.add('hidden');
+      btn?.setAttribute('aria-expanded', 'false');
+    }
+  });
+</script>

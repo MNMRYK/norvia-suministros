@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="Interruptor magnetotérmico">
+  <ellipse cx="206" cy="262" rx="78" ry="7" fill="#1F2937" opacity=".08"/>
+  <path d="M248 52 262 42v196l-14 12z" fill="#CBD2DC"/>
+  <path d="M152 52 166 42h96l-14 10z" fill="#E6E9EF"/>
+  <rect x="152" y="52" width="96" height="198" rx="4" fill="#FFFFFF"/>
+  <rect x="152" y="92" width="96" height="118" fill="#EEF0F4"/>
+  <circle cx="176" cy="70" r="9" fill="#1F2937"/><rect x="171" y="69" width="10" height="2.5" rx="1" fill="#9CA3AF"/>
+  <circle cx="224" cy="70" r="9" fill="#1F2937"/><rect x="219" y="69" width="10" height="2.5" rx="1" fill="#9CA3AF"/>
+  <circle cx="176" cy="232" r="9" fill="#1F2937"/><rect x="171" y="231" width="10" height="2.5" rx="1" fill="#9CA3AF"/>
+  <circle cx="224" cy="232" r="9" fill="#1F2937"/><rect x="219" y="231" width="10" height="2.5" rx="1" fill="#9CA3AF"/>
+  <rect x="166" y="102" width="34" height="5" rx="2.5" fill="#3B5BFD"/>
+  <rect x="206" y="102" width="20" height="5" rx="2.5" fill="#C3CAD5"/>
+  <rect x="166" y="118" width="68" height="62" rx="7" fill="#1F2937"/>
+  <rect x="172" y="123" width="56" height="28" rx="5" fill="#3B5BFD"/>
+  <rect x="172" y="146" width="56" height="5" rx="2" fill="#2A44D6"/>
+  <rect x="199" y="118" width="2" height="62" fill="#374151"/>
+  <rect x="184" y="190" width="32" height="9" rx="3" fill="#A5B4FC"/>
+  <rect x="190" y="250" width="20" height="6" rx="1.5" fill="#4B5563"/>
+</svg>

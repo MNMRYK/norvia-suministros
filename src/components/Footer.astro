@@ -1,0 +1,72 @@
+---
+import Icon from './Icon.astro';
+import Logo from './Logo.astro';
+import { MARCA } from '../data/marca';
+import { familias } from '../data/productos';
+import { url } from '../lib/url';
+---
+
+<footer id="contacto" class="bg-ink text-slate-300">
+  <div class="contenedor grid gap-10 py-10 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.3fr]">
+    <div class="max-w-xs">
+      <Logo invertido />
+      <p class="mt-5 text-sm leading-relaxed">
+        Almacén distribuidor de material eléctrico, fontanería y suministro industrial para instaladores, talleres y
+        empresas de {MARCA.zona}.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="font-display text-sm font-bold text-white">Catálogo</h2>
+      <ul class="mt-4 space-y-2.5 text-sm">
+        {
+          Object.entries(familias).map(([id, f]) => (
+            <li>
+              <a href={url(`catalogo/?familia=${id}`)} class="hover:text-white">
+                {f.nombre}
+              </a>
+            </li>
+          ))
+        }
+        <li><a href={url('catalogo/?stock=stock')} class="hover:text-white">Disponible en almacén</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="font-display text-sm font-bold text-white">Empresa</h2>
+      <ul class="mt-4 space-y-2.5 text-sm">
+        <li><a href={url('#servicios')} class="hover:text-white">Servicios</a></li>
+        <li><a href={url('#marcas')} class="hover:text-white">Líneas de producto</a></li>
+        <li><a href={url('#cliente-profesional')} class="hover:text-white">Hazte cliente profesional</a></li>
+        <li><a href={url('area-clientes/')} class="hover:text-white">Área de clientes</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="font-display text-sm font-bold text-white">Contacto</h2>
+      <ul class="mt-4 space-y-2.5 text-sm">
+        <li class="flex gap-2.5"><Icon name="pin" size={18} class="mt-px text-brand-300" />{MARCA.direccion}</li>
+        <li>
+          <a href={MARCA.telefonoHref} class="flex gap-2.5 hover:text-white">
+            <Icon name="phone" size={18} class="mt-px text-brand-300" /><span class="num">{MARCA.telefono}</span>
+          </a>
+        </li>
+        <li>
+          <a href={`mailto:${MARCA.email}`} class="flex gap-2.5 hover:text-white">
+            <Icon name="mail" size={18} class="mt-px text-brand-300" />{MARCA.email}
+          </a>
+        </li>
+        <li class="flex gap-2.5"><Icon name="clock" size={18} class="mt-px text-brand-300" />{MARCA.horario}</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-white/10">
+    <div class="contenedor flex flex-col gap-2 py-5 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between">
+      <p>© {new Date().getFullYear()} {MARCA.nombreCompleto} · Empresa ficticia, web de demostración.</p>
+      <p>
+        Demo diseñada por <a href="https://mndesignweb.es/" class="font-semibold text-slate-200 underline-offset-4 hover:text-white hover:underline">MN Design Web</a>
+      </p>
+    </div>
+  </div>
+</footer>
